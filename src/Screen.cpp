@@ -35,14 +35,12 @@ Screen::Screen(int width, int height) : width(width), height(height), color(255,
 }
 
 Screen::~Screen() {
-	std::cout << "Shutting down SDL" << std::endl;
 	for (int i = 0; i < IMAGE_STORE_SIZE; i++) {
 		if (imageStore[i]) {
 			SDL_FreeSurface(imageStore[i]);
 		}
 	}
 	delete[] imageStore;
-	cout << "Deleted image store" << endl;
 	SDL_Quit();
 }
 

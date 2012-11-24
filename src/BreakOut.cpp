@@ -40,7 +40,7 @@ void BreakOut::handleEvent(SDL_Event &event) {
 }
 
 void BreakOut::updateModel(float millis) {
-	_starField.update(-0.01f);
+	_starField.update(-0.005f);
 	_batAnimation->update(millis);
 }
 

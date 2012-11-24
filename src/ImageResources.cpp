@@ -2,6 +2,7 @@
 #include "Screen.h"
 
 #include <string>
+#include <iostream>
 
 ImageResources::ImageResources() {
 }

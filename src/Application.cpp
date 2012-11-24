@@ -11,7 +11,6 @@ Application::Application(int width, int height, int fps)
 }
 
 Application::~Application() {
-	cout << "Application ended" << endl;
 }
 
 void Application::run() {
@@ -37,10 +36,10 @@ void Application::run() {
 			}
 		}
 	}
+	shutDown();
 }
 
 void Application::stop() {
-	shutDown();
 	_running = false;
 }
 
