@@ -12,7 +12,6 @@
 class BreakOut : public Application, public CollisionResolver {
 	StarField _starField;
 	CollisionDetector _collisionDetector;
-	CollisionResolver _collisionResolver;
 	ImageResources _imageResources;
 	//GameObject bat, ball;
 	Animation *_batAnimation;

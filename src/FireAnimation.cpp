@@ -1,12 +1,20 @@
+#include "Animation.h"
 #include "FireAnimation.h"
 #include "Screen.h"
 
-#include <SDL/SDL.h>
+FireAnimation::FireAnimation(int width, int height, int ignitionPoints, int fps) :
+		Animation(fps), 
+    _width(width), 
+    _height(height), 
+    _ignitionPoints(ignitionPoints) {
+}
 
-FireAnimation::FireAnimation(Screen &screen, int width, int height, int origins, int fps) :
-		Animation(fps),
-		_width(width),
-		_height(height),
-		_origins(origins) {
-	_surface = screen.getSurface(width, height);
+FireAnimation::~FireAnimation() {
+}
+
+void FireAnimation::render(Screen &screen, int x, int y) {
+}
+
+bool FireAnimation::nextFrame() {
+  return false;
 }
