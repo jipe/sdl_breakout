@@ -1,8 +1,12 @@
 #include "Vector2.h"
+#include "Screen.h"
 
 #include <cmath>
 
 Vector2::Vector2(float x, float y) : x(x), y(y) {
+}
+
+Vector2::Vector2(const Vector2 &v1, const Vector2 &v2) : x(v2.x - v1.x), y(v2.y - v1.y) {
 }
 
 const Vector2 operator + (const Vector2 &v1, const Vector2 &v2) {
@@ -48,3 +52,5 @@ Vector2 Vector2::normalize() const {
 	return Vector2(x/length, y/length);
 }
 
+void Vector2::render(Screen &screen, int x, int y) const {
+}

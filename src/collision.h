@@ -2,7 +2,3 @@
 #include "CollisionObject.h"
 #include "CollisionDetector.h"
 #include "CollisionResolver.h"
-#include "BoundingObject.h"
-#include "BoundingBox.h"
-#include "BoundingSphere.h"
-#include "BoundingPlane.h"

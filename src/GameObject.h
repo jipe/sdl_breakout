@@ -2,26 +2,23 @@
 #define GAME_OBJECT_H
 
 #include "Screen.h"
-#include "CollisionObject.h"
-#include "BoundingObject.h"
 #include "Vector2.h"
-#include "Animation.h"
 
 #include <vector>
 
 using namespace std;
 
-class GameObject : public CollisionObject {
-	vector<Animation*> _animations;
-	int _animationPtr;
+class GameObject {
+  Vector2 _position, _speed, _acceleration;
 
 	public:
-		GameObject(const BoundingObject &boundingObject, const Vector2 position);
+		GameObject(const Vector2 position);
 
-		int add(Animation *animation);
-		void setCurrentAnimation(int handle);
+    const Vector2& position() const { return _position; }
+    const Vector2& speed() const { return _speed; }
+    const Vector2& acceleration() const { return _acceleration; }
 
-		void render(Screen &screen) const;
+		virtual void render(Screen &screen) const;
 };
 
 #endif

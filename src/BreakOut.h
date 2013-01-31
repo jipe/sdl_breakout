@@ -1,20 +1,21 @@
 #ifndef BREAKOUT_H
 #define BREAKOUT_H
 
-#include "StarField.h"
+#include <vector>
 
+#include "StarField.h"
 #include "application.h"
 #include "collision.h"
 #include "ImageResources.h"
 #include "Animation.h"
 #include "GameObject.h"
+#include "Brick.h"
 
 class BreakOut : public Application, public CollisionResolver {
 	StarField _starField;
 	CollisionDetector _collisionDetector;
 	ImageResources _imageResources;
-	//GameObject bat, ball;
-	Animation *_batAnimation;
+  std::vector<Brick*> _gameObjects;
 
 	void init(Screen &screen);
 	void handleEvent(SDL_Event &event);

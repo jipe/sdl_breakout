@@ -20,7 +20,7 @@ class Screen {
 		void setBackground(Color c);
 		void clear();
 
-		void drawLine(int x0, int y0, int x1, int y1);
+		void drawLine(int x0, int y0, int x1, int y1, bool antialias = false);
 		void drawRect(int x0, int y0, int x1, int y1, bool lock = true);
 		void fillRect(int x0, int y0, int x1, int y1, bool lock = true);
 		void drawImage(int imageHandle, int x, int y);
