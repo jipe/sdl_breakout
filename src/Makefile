@@ -1,12 +1,12 @@
 CPP := $(shell which g++)
 STRIP := $(shell which strip)
 CPPFLAGS = -std=c++0x -g
-EXE = breakout
+EXE = sdl_breakout
 LIBS = -lSDL -lSDL_image
 OBJECTS := $(patsubst %.cpp,%.o,$(wildcard *.cpp))
-TARBALL = breakout.tar.gz
+TARBALL = sdl-breakout.tar.gz
 TMP = /tmp
-DIST_DIR = BreakOut
+DIST_DIR = sdl-breakout
 
 release: debug
 	@echo Building release version \(removing debugging symbols\)
@@ -23,5 +23,5 @@ tarball:
 	@rm -rf $(TMP)/$(DIST_DIR)
 	@mkdir $(TMP)/$(DIST_DIR)
 	@cp -r . $(TMP)/$(DIST_DIR)
-	@tar czf $(TARBALL) -C $(TMP) --exclude=.*.swp --exclude=*.o --exclude=.svn --exclude=*.tar.gz $(DIST_DIR)
+	@tar czf $(TARBALL) -C $(TMP) --exclude=.*.swp --exclude=*.o --exclude=.svn --exclude=*.tar.gz --exclude=$(EXE) $(DIST_DIR)
 	@rm -rf $(TMP)/$(DIST_DIR)

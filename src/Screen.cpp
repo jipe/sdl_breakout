@@ -56,11 +56,11 @@ void Screen::unlockSurface() {
 void Screen::setPixel(int x, int y, bool lock) {
 	if (lock) {
 		if (SDL_LockSurface(surface) == 0) {
-			((Uint32*) surface->pixels)[y*surface->w + x] = colorPixel;
+      _drawPixel(x, y);
 			SDL_UnlockSurface(surface);
 		}
 	} else {
-		((Uint32*) surface->pixels)[y*surface->w + x] = colorPixel;
+    _drawPixel(x, y);
 	}
 }
 
@@ -90,88 +90,160 @@ void Screen::clear() {
 }
 
 void Screen::drawLine(int x0, int y0, int x1, int y1, bool antialias) {
-	Uint32* pixels = static_cast<Uint32*>(surface->pixels);
-
   int dx = x1 - x0;
   int dy = y1 - y0;
 
-  if (dx == 0) {
-    // Vertical line or a point
-    if (dy < 0) {
-      swap(y0, y1);    
-    }
-    for (int y = y0; y <= y1; y++) {
-      pixels[y*surface->w + x0] = colorPixel;
-    }
-  } else if (dy == 0) {
-    // Horizontal line or a point
-    if (dx < 0) {
-      int tmp = x0;
-      x0 = x1;
-      x1 = tmp;
-    }
-    int y = y0*surface->w;
-    for (int x = x0; x <= x1; x++) {
-      pixels[y + x] = colorPixel;
-    }
-  } else if (abs(dx) > abs(dy)) {
-    // Draw along x
-    if (dx < 0) {
-      int tmp = x0;
-      x0 = x1;
-      x1 = tmp;
-      tmp = y0;
-      y0 = y1;
-      y1 = tmp;
-      dx = -dx;
-      dy = -dy;
-    }
-    if (antialias) {
-    } else {
-      int a = dy, b = -dx;
-      int incrXY = a + b;
-      int incrX = a;
-      int d = 2*a + b;
-      int y = y0;
-      int incrY = sgn(dy);
-      for (int x = x0; x < x1; x++) {
-        pixels[y*surface->w + x] = colorPixel;
-        if (d < 0) {
-          d += incrX;
+  if (abs(dx) < abs(dy)) {
+    if (dx > 0 && dy > 0) {
+      // 2nd octant - normal is (-dy, dx)
+      int f = dy - 2*dx;
+      int df_y = -2*dx;
+      int df_xy = 2*(dy - dx);
+      int x = x0;
+      for (int y = y0; y <= y1; y++) {
+        _drawPixel(x, y);
+        if (f < 0) {
+          x++;
+          f += df_xy;
         } else {
-          d += incrXY;
-          y += incrY;
+          f += df_y;
         }
       }
-      pixels[y1*surface->w + x1] = colorPixel;
-    }
-  } else {
-    if (dy < 0) {
-      int tmp = y0;
-      y0 = y1;
-      y1 = tmp;
-      tmp = x0;
-      x0 = x1;
-      x1 = tmp;
-      dx = -dx;
-      dy = -dy;
-    }
-    int a = dx, b = -dy;
-    int incrXY = a + b;
-    int incrY = a;
-    int d = 2*a + b;
-    int x = x0;
-    int incrX = sgn(dx);
-    for (int y = y0; y < y1; y++) {
-      pixels[y*surface->w + x] = colorPixel;
-      if (d < 0) {
-        d += incrY;
+    } else if (dx < 0 && dy > 0) {
+      // 3rd octant - normal is (-dy, dx)
+      int f = 2*dx + dy;
+      int df_y = 2*dx;
+      int df_xy = 2*(dx + dy);
+      int x = x0;
+
+      for (int y = y0; y <= y1; y++) {
+        _drawPixel(x, y);
+        if (f < 0) {
+          x--;
+          f += df_xy;
+        } else {
+          f += df_y;
+        }
+      }
+    } else if (dx < 0 && dy < 0) {
+      // 6th octant - normal is (dy, -dx)
+      int f = -dy + 2*dx;
+      int df_y = 2*dx;
+      int df_xy = -2*(dy - dx);
+      int x = x0;
+      for (int y = y0; y >= y1; y--) {
+        _drawPixel(x,y);
+        if (f < 0) {
+          x--;
+          f += df_xy;
+        } else {
+          f += df_y;
+        }
+      }
+    } else if (dx > 0 && dy < 0) {
+      // 7th octant - normal is (-dy, dx)
+      int f = -dy -2*dx;
+      int df_y = -2*dx;
+      int df_xy = -2*(dx + dy);
+      int x = x0;
+
+      for (int y = y0; y >= y1; y--) {
+        _drawPixel(x, y);
+        if (f < 0) {
+          x++;
+          f += df_xy;
+        } else {
+          f += df_y;
+        }
+      }
+    } else if (dx == 0) {
+      // Vertical line
+      if (dy > 0) {
+        for (int y = y0; y <= y1; y++) {
+          _drawPixel(x0, y);
+        }
       } else {
-        d += incrXY;
-        x += incrX;
+        for (int y = y0; y >= y1; y--) {
+          _drawPixel(x0, y);
+        }
       }
     }
-    pixels[y1*surface->w + x1] = colorPixel;
+  } else {
+    if (dx > 0 && dy > 0) {
+      // 1st octant - normal is (-dy, dx)
+      int f = -2*dy + dx;
+      int df_x = -2*dy;
+      int df_xy = 2*(dx - dy);
+      int y = y0;
+
+      for (int x = x0; x <= x1; x++) {
+        _drawPixel(x, y);
+        if (f < 0) {
+          y++;
+          f += df_xy;
+        } else {
+          f += df_x;
+        }
+      }
+    } else if (dx < 0 && dy > 0) {
+      // 4th octant - normal is (dy, -dx)
+      int f = -2*dy - dx;
+      int df_x = -2*dy;
+      int df_xy = -2*(dy + dx);
+      int y = y0;
+
+      for (int x = x0; x >= x1; x--) {
+        _drawPixel(x, y);
+        if (f < 0) {
+          y++;
+          f += df_xy;
+        } else {
+          f += df_x;
+        }
+      }
+    } else if (dx < 0 && dy < 0) {
+      // 5th octant - normal is (-dy, dx)
+      int f = 2*dy - dx;
+      int df_x = 2*dy;
+      int df_xy = -2*(dx - dy);
+      int y = y0;
+
+      for (int x = x0; x >= x1; x--) {
+        _drawPixel(x, y);
+        if (f < 0) {
+          y--;
+          f += df_xy;
+        } else {
+          f += df_x;
+        }
+      }
+    } else if (dx > 0 && dy < 0) {
+      // 8th octant - normal is (dy, -dx)
+      int f = 2*dy + dx;
+      int df_x = 2*dy;
+      int df_xy = 2*(dy + dx);
+      int y = y0;
+      for (int x = x0; x <= x1; x++) {
+        _drawPixel(x, y);
+        if (f < 0) {
+          y--;
+          f += df_xy;
+        } else {
+          f += df_x;
+        }
+      }
+    } else if (dy == 0) {
+      // Horizontal line
+      if (dx > 0) {
+        for (int x = x0; x <= x1; x++) {
+          _drawPixel(x, y0);
+        }
+      } else {
+        for (int x = x0; x >= x1; x--) {
+          _drawPixel(x, y0);
+        }
+      }
+    }
   }
 }
 

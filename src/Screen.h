@@ -51,6 +51,9 @@ class Screen {
 
 		void _drawRect(int x0, int y0, int x1, int y1);
 		void _fillRect(int x0, int y0, int x1, int y1);
+    inline void _drawPixel(int x, int y) { static_cast<Uint32*>(surface->pixels)[y*surface->w + x] = colorPixel; }
+
+    Screen& operator = (const Screen &screen) { return *this; }
 };
 
 #endif

@@ -8,7 +8,7 @@ class ImageResources {
 		_blueBrickImageInfo, _greyBrickImageInfo, _borderImageInfo, _greySlateImageInfo;
 
 	public:
-		ImageResources();
+		ImageResources(Screen &screen);
 
 		void init(Screen &screen);
 

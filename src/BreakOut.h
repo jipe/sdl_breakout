@@ -16,14 +16,16 @@ class BreakOut : public Application, public CollisionResolver {
 	CollisionDetector _collisionDetector;
 	ImageResources _imageResources;
   std::vector<Brick*> _gameObjects;
+  int _lineDelta, _lineOffset;
 
-	void init(Screen &screen);
+	//void init(Screen &screen);
 	void handleEvent(SDL_Event &event);
 	void updateModel(float millis);
-	void render(Screen &screen);
-	void shutDown();
+	void render();
+	//void shutDown();
 
 	void resolve(Collision collision);
+  void renderCircle(Screen &screen, int x, int y, bool ccw = true);
 	
 	public:
 		BreakOut(int width, int height, int fps);

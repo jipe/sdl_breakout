@@ -1,3 +1,4 @@
 src/breakout
+src/sdl_breakout
 *.o
 .*.swp

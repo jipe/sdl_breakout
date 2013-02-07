@@ -4,10 +4,7 @@
 #include <string>
 #include <iostream>
 
-ImageResources::ImageResources() {
-}
-
-void ImageResources::init(Screen &screen) {
+ImageResources::ImageResources(Screen &screen) {
 	_batImageInfo = screen.loadImage("images/bat.png");
 	_ballImageInfo = screen.loadImage("images/ball.png");
 	_redBrickImageInfo = screen.loadImage("images/brick_red.png");
@@ -16,6 +13,9 @@ void ImageResources::init(Screen &screen) {
 	_greyBrickImageInfo = screen.loadImage("images/brick_grey.png");
 	_borderImageInfo = screen.loadImage("images/background.png");
 	_greySlateImageInfo = screen.loadImage("images/grey_slate.png");
+}
+
+void ImageResources::init(Screen &screen) {
 }
 
 ImageInfo ImageResources::getBatImageInfo() const {
