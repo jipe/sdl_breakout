@@ -7,8 +7,7 @@
 #include <SDL/SDL_image.h>
 #include <string>
 #include <iostream>
-
-const int IMAGE_STORE_SIZE = 128;
+#include <vector>
 
 using namespace std;
 
@@ -16,7 +15,7 @@ Screen::Screen(int width, int height) : width(width), height(height), color(255,
 	if (SDL_Init(SDL_INIT_VIDEO) == -1) {
 		throw ScreenException("Error initialising SDL");
 	}
-	surface = SDL_SetVideoMode(width, height, 32, SDL_ANYFORMAT);
+	surface = SDL_SetVideoMode(width, height, 32, SDL_ANYFORMAT|SDL_DOUBLEBUF);
 	if (!surface) {
 		throw ScreenException("Error setting video mode");
 	}
@@ -26,8 +25,6 @@ Screen::Screen(int width, int height) : width(width), height(height), color(255,
 	} else {
 		std::cout << "Video info was null" << std::endl;
 	}
-	imageStore = new SDL_Surface*[IMAGE_STORE_SIZE];
-	memset(imageStore, 0, IMAGE_STORE_SIZE * sizeof(SDL_Surface*));
 	std::cout << "width: " << surface->w << std::endl;
 	std::cout << "height: " << surface->h << std::endl;
 	std::cout << "pitch: " << surface->pitch << std::endl;
@@ -36,12 +33,9 @@ Screen::Screen(int width, int height) : width(width), height(height), color(255,
 }
 
 Screen::~Screen() {
-	for (int i = 0; i < IMAGE_STORE_SIZE; i++) {
-		if (imageStore[i]) {
-			SDL_FreeSurface(imageStore[i]);
-		}
-	}
-	delete[] imageStore;
+  for (vector<SDL_Surface*>::iterator iter = _imageStore.begin(); iter != _imageStore.end(); iter++) {
+    SDL_FreeSurface(*iter);
+  }
 	SDL_Quit();
 }
 
@@ -299,8 +293,8 @@ void Screen::fillRect(int x0, int y0, int x1, int y1, bool lock) {
 }
 
 void Screen::drawImage(int imageHandle, int x, int y) {
-	if (imageHandle >= 0 && imageHandle < IMAGE_STORE_SIZE) {
-		SDL_Surface* image = imageStore[imageHandle];
+	if (imageHandle >= 0 && imageHandle < _imageStore.size()) {
+		SDL_Surface* image = _imageStore[imageHandle];
 		SDL_Rect dest;
 		dest.x = x;
 		dest.y = y;
@@ -309,8 +303,8 @@ void Screen::drawImage(int imageHandle, int x, int y) {
 }
 
 void Screen::drawImage(int imageHandle, int x, int y, const SDL_Rect &src) {
-	if (imageHandle >= 0 && imageHandle < IMAGE_STORE_SIZE) {
-		drawSurface(imageStore[imageHandle], x, y, src);
+	if (imageHandle >= 0 && imageHandle < _imageStore.size()) {
+		drawSurface(_imageStore[imageHandle], x, y, src);
 	}
 }
 
@@ -329,27 +323,21 @@ void Screen::flush() const {
 }
 
 const ImageInfo Screen::loadImage(std::string fileName) {
-	int ptr = 0;
-	while (ptr < IMAGE_STORE_SIZE && imageStore[ptr]) {
-		ptr++;
-	}
-	if (ptr < IMAGE_STORE_SIZE) {
-		SDL_Surface* loadedSurface = IMG_Load(fileName.c_str());
-		if (loadedSurface) {
-			SDL_Surface* convertedSurface = SDL_DisplayFormatAlpha(loadedSurface);
-			if (convertedSurface) {
-				imageStore[ptr] = convertedSurface;
-			}
-			SDL_FreeSurface(loadedSurface);
-			return ImageInfo(ptr, convertedSurface->w, convertedSurface->h);
-		}
-	}
+  SDL_Surface* loadedSurface = IMG_Load(fileName.c_str());
+  if (loadedSurface) {
+    SDL_Surface* convertedSurface = SDL_DisplayFormatAlpha(loadedSurface);
+    if (convertedSurface) {
+      _imageStore.push_back(convertedSurface);
+    }
+    SDL_FreeSurface(loadedSurface);
+    return ImageInfo(_imageStore.size()-1, convertedSurface->w, convertedSurface->h);
+  }
 	return ImageInfo(-1, 0, 0);
 }
 
 const ImageInfo Screen::getImageInfo(int imageHandle) const {
-	if (imageHandle >= 0 && imageHandle < IMAGE_STORE_SIZE) {
-		SDL_Surface *image = imageStore[imageHandle];
+	if (imageHandle >= 0 && imageHandle < _imageStore.size()) {
+		SDL_Surface *image = _imageStore[imageHandle];
 		return ImageInfo(imageHandle, image->w, image->h);
 	} else {
 		return ImageInfo(-1, 0, 0);

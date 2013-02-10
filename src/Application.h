@@ -33,7 +33,7 @@ class Application {
 		virtual void updateModel(float millis) = 0;
 		virtual void render() = 0;
 
-		virtual void handleEvent(SDL_Event &event);
+		virtual void handleEvent(SDL_Event& event);
 		//virtual void shutDown();
 
 		void hideCursor();

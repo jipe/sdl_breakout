@@ -10,6 +10,7 @@
 #include "Animation.h"
 #include "GameObject.h"
 #include "Brick.h"
+#include "Edge.h"
 
 class BreakOut : public Application, public CollisionResolver {
 	StarField _starField;
@@ -17,12 +18,12 @@ class BreakOut : public Application, public CollisionResolver {
 	ImageResources _imageResources;
   std::vector<Brick*> _gameObjects;
   int _lineDelta, _lineOffset;
+  std::vector<Vector2> _points;
+  std::vector<Edge> _edges;
 
-	//void init(Screen &screen);
 	void handleEvent(SDL_Event &event);
 	void updateModel(float millis);
 	void render();
-	//void shutDown();
 
 	void resolve(Collision collision);
   void renderCircle(Screen &screen, int x, int y, bool ccw = true);

@@ -6,6 +6,7 @@
 
 #include <SDL/SDL.h>
 #include <string>
+#include <vector>
 
 class Screen {
 	public:
@@ -47,7 +48,7 @@ class Screen {
 		SDL_Surface* surface;
 		Color color, background;
 		unsigned int colorPixel, backgroundPixel;
-		SDL_Surface** imageStore;
+    std::vector<SDL_Surface*> _imageStore;
 
 		void _drawRect(int x0, int y0, int x1, int y1);
 		void _fillRect(int x0, int y0, int x1, int y1);
