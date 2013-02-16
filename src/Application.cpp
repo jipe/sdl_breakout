@@ -7,7 +7,7 @@
 using namespace std;
 
 Application::Application(int width, int height, int fps) 
-    : _width(width), _height(height), _paused(false), _running(false), _ticksPerFrame(1000.0f / static_cast<float>(fps)) {
+    : _width(width), _height(height), _paused(false), _running(false), _ticks_per_frame(1000.0f / static_cast<float>(fps)) {
   putenv((char*)"SDL_VIDEO_CENTERED=1");
   _screen = new Screen(_width, _height);
 }
@@ -19,7 +19,7 @@ Application::~Application() {
 void Application::run() {
   SDL_ShowCursor(0);
   //SDL_WM_GrabInput(SDL_GRAB_ON);
-  unsigned int t0, deltaTicks;
+  unsigned int t0, delta_ticks;
   _running = true;
   while (_running) {
     t0 = SDL_GetTicks();
@@ -28,11 +28,11 @@ void Application::run() {
       usleep(100000);
     } else {
       _processEvents();
-      updateModel(_ticksPerFrame);
+      updateModel(_ticks_per_frame);
       render();
-      deltaTicks = SDL_GetTicks() - t0;
-      if (deltaTicks < _ticksPerFrame) {
-        usleep((_ticksPerFrame - deltaTicks) * 1000);
+      delta_ticks = SDL_GetTicks() - t0;
+      if (delta_ticks < _ticks_per_frame) {
+        usleep((_ticks_per_frame - delta_ticks) * 1000);
       }
     }
   }
@@ -105,7 +105,3 @@ void Application::hideCursor() {
   SDL_ShowCursor(0);
 }
 
-/*
-void Application::shutDown() {
-}
-*/

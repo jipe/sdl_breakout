@@ -2,11 +2,11 @@
 #define IMAGE_INFO_H
 
 struct ImageInfo {
-	int imageHandle;
+	int image_handle;
 	int width, height;
 
 	ImageInfo();
-	ImageInfo(int imageHandle, int width, int height);
+	ImageInfo(int image_handle, int width, int height);
 };
 
 #endif

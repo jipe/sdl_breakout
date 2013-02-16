@@ -17,9 +17,8 @@ enum BrickIndex { RED = 0, GREEN = 1, BLUE = 2, GREY = 3 };
 
 BreakOut::BreakOut(int width, int height, int fps) : 
 		Application(width, height, fps), 
-		_starField(width, height, 5750),
-    _imageResources(getScreen()),
-    _lineDelta(40), _lineOffset(0) {
+		_star_field(width, height, 5750),
+    _image_resources(getScreen()) {
 
   for (int i = 0; i < 20; i++) {
     float x = (width-1) * (static_cast<float>(rand()) / static_cast<float>(RAND_MAX));
@@ -32,8 +31,8 @@ BreakOut::BreakOut(int width, int height, int fps) :
 }
 
 BreakOut::~BreakOut() {
-  vector<Brick*>::iterator iter = _gameObjects.begin();
-  while (iter != _gameObjects.end()) {
+  vector<Brick*>::iterator iter = _game_objects.begin();
+  while (iter != _game_objects.end()) {
     delete *iter;
     iter++;
   }
@@ -50,7 +49,7 @@ void BreakOut::handleEvent(SDL_Event &event) {
 }
 
 void BreakOut::updateModel(float millis) {
-	_starField.update(-0.007f);
+	_star_field.update(-0.007f);
 }
 
 void BreakOut::render() {
@@ -76,34 +75,4 @@ void BreakOut::render() {
 
 	screen.unlockSurface();
 	screen.flush();
-}
-
-void BreakOut::renderCircle(Screen &screen, int x0, int y0, bool ccw) {
-  if (ccw) {
-    for (int x = getWidth()-1-_lineOffset; x >= 0; x -= _lineDelta) {
-      screen.drawLine(x0, y0, x, 0);
-    }
-    for (int y = _lineOffset; y < getHeight(); y += _lineDelta) {
-      screen.drawLine(x0, y0, 0, y);
-    }
-    for (int x = _lineOffset; x < getWidth(); x += _lineDelta) {
-      screen.drawLine(x0, y0, x, getHeight()-1);
-    }
-    for (int y = getHeight()-1-_lineOffset; y >= 0; y -= _lineDelta) {
-      screen.drawLine(x0, y0, getWidth()-1, y);
-    }
-  } else {
-    for (int x = _lineOffset; x < getWidth(); x += _lineDelta) {
-      screen.drawLine(x0, y0, x, 0);
-    }
-    for (int y = _lineOffset; y < getHeight(); y += _lineDelta) {
-      screen.drawLine(x0, y0, getWidth()-1, y);
-    }
-    for (int x = getWidth()-1-_lineOffset; x >= 0; x -= _lineDelta) {
-      screen.drawLine(x0, y0, x, getHeight()-1);
-    }
-    for (int y = getHeight()-1-_lineOffset; y >= 0; y -= _lineDelta) {
-      screen.drawLine(x0, y0, 0, y);
-    }
-  }
 }

@@ -9,11 +9,11 @@
 using namespace std;
 
 class ImageAnimation : public Animation {
-	int _imageHandle, _frameWidth, _imageWidth, _imageHeight;
-	int _framePtr, _numberOfFrames;
+	int _image_handle, _frame_width, _image_width, _image_height;
+	int _frame_ptr, _number_of_frames;
 
 	public:
-		ImageAnimation(Screen &screen, int imageHandle, int frameWidth, int fps);
+		ImageAnimation(Screen &screen, int image_handle, int frame_width, int fps);
 		virtual ~ImageAnimation() { }
 
 		bool nextFrame();

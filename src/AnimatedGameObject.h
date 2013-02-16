@@ -12,7 +12,8 @@ using namespace std;
 
 class AnimatedGameObject {
 	vector<Animation*> _animations;
-	int _animationPtr;
+	int _animation_ptr;
+  Vector2 _position;
 
 	public:
 		AnimatedGameObject(const Vector2 position);

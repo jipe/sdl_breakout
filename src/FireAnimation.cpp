@@ -2,11 +2,11 @@
 #include "FireAnimation.h"
 #include "Screen.h"
 
-FireAnimation::FireAnimation(int width, int height, int ignitionPoints, int fps) :
+FireAnimation::FireAnimation(int width, int height, int ignition_points, int fps) :
 		Animation(fps), 
     _width(width), 
     _height(height), 
-    _ignitionPoints(ignitionPoints) {
+    _ignition_points(ignition_points) {
 }
 
 FireAnimation::~FireAnimation() {

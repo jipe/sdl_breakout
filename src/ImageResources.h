@@ -4,8 +4,8 @@
 #include "Screen.h"
 
 class ImageResources {
-	ImageInfo _batImageInfo, _ballImageInfo, _redBrickImageInfo, _greenBrickImageInfo, 
-		_blueBrickImageInfo, _greyBrickImageInfo, _borderImageInfo, _greySlateImageInfo;
+	ImageInfo _bat_image_info, _ball_image_info, _red_brick_image_info, _green_brick_image_info, 
+		_blue_brick_image_info, _grey_brick_image_info, _border_image_info, _grey_slate_image_info;
 
 	public:
 		ImageResources(Screen &screen);

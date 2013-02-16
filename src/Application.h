@@ -6,7 +6,7 @@
 class Application {
 	int _width, _height;
 	bool _running, _paused;
-	float _ticksPerFrame;
+	float _ticks_per_frame;
   Screen *_screen;
 	
 	void _processEvents();
@@ -29,12 +29,10 @@ class Application {
 		}
 
 	protected:
-		//virtual void init(Screen &s) = 0;
 		virtual void updateModel(float millis) = 0;
 		virtual void render() = 0;
 
 		virtual void handleEvent(SDL_Event& event);
-		//virtual void shutDown();
 
 		void hideCursor();
     Screen& getScreen() { return *_screen; }

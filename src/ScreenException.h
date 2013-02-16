@@ -4,16 +4,16 @@
 #include <string>
 
 class ScreenException {
+  std::string _message;
+
 	public:
-		ScreenException(std::string message) : message(message) {
+		ScreenException(std::string message) : _message(message) {
 		}
 
 		std::string getMessage() { 
-			return message; 
+			return _message; 
 		}
 
-	private:
-		std::string message;
 };
 
 #endif

@@ -10,8 +10,8 @@ CollisionDetector::CollisionDetector() {
 }
 
 void CollisionDetector::add(CollisionObject &obj) {
-	obj.setCollisionSystemHandle(objects.size());
-	objects.push_back(&obj);
+	obj.setCollisionSystemHandle(_objects.size());
+	_objects.push_back(&obj);
 }
 
 void CollisionDetector::remove(CollisionObject &obj) {

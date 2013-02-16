@@ -9,6 +9,8 @@
 using namespace std;
 
 class CollisionDetector {
+  vector<CollisionObject*> _objects;
+
 	public:
 		CollisionDetector();
 
@@ -17,13 +19,6 @@ class CollisionDetector {
 
 		vector<Collision> update(float millis);
 
-	private:
-    /* TODO: Use a more elaborate container like a grid or something like that
-             so only objects that are actually close to each other are tested
-             for collision.
-     */
-		vector<CollisionObject*> objects;
-		
 };
 
 #endif

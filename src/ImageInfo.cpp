@@ -1,9 +1,9 @@
 #include "ImageInfo.h"
 
 ImageInfo::ImageInfo() 
-		: imageHandle(-1), width(0), height(0) {
+		: image_handle(-1), width(0), height(0) {
 }
 
-ImageInfo::ImageInfo(int imageHandle, int width, int height) 
-		: imageHandle(imageHandle), width(width), height(height) {
+ImageInfo::ImageInfo(int image_handle, int width, int height) 
+		: image_handle(image_handle), width(width), height(height) {
 }

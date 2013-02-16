@@ -7,7 +7,7 @@
 
 using namespace std;
 
-AnimatedGameObject::AnimatedGameObject(const Vector2 position) {
+AnimatedGameObject::AnimatedGameObject(const Vector2 position) : _position(position) {
 }
 
 int AnimatedGameObject::add(Animation *animation) {
@@ -17,9 +17,9 @@ int AnimatedGameObject::add(Animation *animation) {
 }
 
 void AnimatedGameObject::setCurrentAnimation(int handle) {
-	_animationPtr = handle;
+	_animation_ptr = handle;
 }
 
 void AnimatedGameObject::render(Screen &screen) const {
-	//_animations[_animationPtr]->render(screen, static_cast<int>(_position.x), static_cast<int>(_position.y));
+	_animations[_animation_ptr]->render(screen, static_cast<int>(_position.x), static_cast<int>(_position.y));
 }

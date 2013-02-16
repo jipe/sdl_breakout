@@ -13,11 +13,10 @@
 #include "Edge.h"
 
 class BreakOut : public Application, public CollisionResolver {
-	StarField _starField;
-	CollisionDetector _collisionDetector;
-	ImageResources _imageResources;
-  std::vector<Brick*> _gameObjects;
-  int _lineDelta, _lineOffset;
+	StarField _star_field;
+	CollisionDetector _collision_detector;
+	ImageResources _image_resources;
+  std::vector<Brick*> _game_objects;
   std::vector<Vector2> _points;
   std::vector<Edge> _edges;
 
@@ -26,7 +25,6 @@ class BreakOut : public Application, public CollisionResolver {
 	void render();
 
 	void resolve(Collision collision);
-  void renderCircle(Screen &screen, int x, int y, bool ccw = true);
 	
 	public:
 		BreakOut(int width, int height, int fps);

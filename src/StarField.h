@@ -9,8 +9,15 @@ typedef struct {
 } Star;
 
 class StarField {
+  int _number_of_stars, _width, _height;
+  float _near, _far;
+  Color _color, _background;
+  Star* _stars;
+
+  void init();
+
 	public:
-		StarField(int width, int height, int numberOfStars);
+		StarField(int width, int height, int _number_of_stars);
 		~StarField();
 
 		void render(Screen &screen, int x, int y, bool lock = true);
@@ -18,13 +25,6 @@ class StarField {
 		void setColor(Color c);
 		void setBackground(Color c);
 
-	private:
-		int numberOfStars, width, height;
-		float near, far;
-		Color color, background;
-		Star* stars;
-
-		void init();
 };
 
 #endif

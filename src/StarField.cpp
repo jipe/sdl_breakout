@@ -5,48 +5,48 @@
 
 #include <cstdlib>
 
-StarField::StarField(int width, int height, int numberOfStars) : 
-		width(width), 
-		height(height), 
-		numberOfStars(numberOfStars), 
-		near(0.1f), 
-		far(2.0f), 
-		color(ColorConstants::WHITE), 
-		background(ColorConstants::BLACK) {
+StarField::StarField(int width, int height, int number_of_stars) : 
+		_width(width), 
+		_height(height), 
+		_number_of_stars(number_of_stars), 
+		_near(0.1f), 
+		_far(2.0f), 
+		_color(ColorConstants::WHITE), 
+		_background(ColorConstants::BLACK) {
 	init();
 }
 
 StarField::~StarField() {
-	delete stars;
+	delete _stars;
 }
 
 void StarField::init() {
-	stars = new Star[numberOfStars];
-	for (int i = 0; i < numberOfStars; i++) {
-		stars[i].x = (rand() % (2*width)) - width;
-		stars[i].y = (rand() % (2*height)) - height;
-		stars[i].z = (far - near) * static_cast<float>(rand()) / static_cast<float>(RAND_MAX) + near;
+	_stars = new Star[_number_of_stars];
+	for (int i = 0; i < _number_of_stars; i++) {
+		_stars[i].x = (rand() % (2*_width)) - _width;
+		_stars[i].y = (rand() % (2*_height)) - _height;
+		_stars[i].z = (_far - _near) * static_cast<float>(rand()) / static_cast<float>(RAND_MAX) + _near;
 	}
 }
 
 void StarField::render(Screen &screen, int x, int y, bool lock) {
-	float halfWidth = static_cast<float>(width) / 2.0f;
-	float halfHeight = static_cast<float>(height) / 2.0f;
+	float half_width = static_cast<float>(_width) / 2.0f;
+	float half_height = static_cast<float>(_height) / 2.0f;
 	if (lock) {
 		screen.lockSurface();
 	}
-	for (int i = 0; i < numberOfStars; i++) {
-		int posx = static_cast<int>(halfWidth + (stars[i].x - halfWidth) / stars[i].z);
-		int posy = static_cast<int>(halfHeight + (stars[i].y - halfHeight) / stars[i].z);
-		if (posx >= x && posx < width+x && posy >= y && posy < height+y) {
-			int r = static_cast<int>((far - near - (stars[i].z - near)) * (color.getR() - background.getR()) + background.getR());
-			int g = static_cast<int>((far - near - (stars[i].z - near)) * (color.getG() - background.getG()) + background.getG());
-			int b = static_cast<int>((far - near - (stars[i].z - near)) * (color.getB() - background.getB()) + background.getB());
+	for (int i = 0; i < _number_of_stars; i++) {
+		int pos_x = static_cast<int>(half_width + (_stars[i].x - half_width) / _stars[i].z);
+		int pos_y = static_cast<int>(half_height + (_stars[i].y - half_height) / _stars[i].z);
+		if (pos_x >= x && pos_x < _width+x && pos_y >= y && pos_y < _height+y) {
+			int r = static_cast<int>((_far - _near - (_stars[i].z - _near)) * (_color.getR() - _background.getR()) + _background.getR());
+			int g = static_cast<int>((_far - _near - (_stars[i].z - _near)) * (_color.getG() - _background.getG()) + _background.getG());
+			int b = static_cast<int>((_far - _near - (_stars[i].z - _near)) * (_color.getB() - _background.getB()) + _background.getB());
 			if (r > 255) { r = 255; }
 			if (g > 255) { g = 255; }
 			if (b > 255) { b = 255; }
 			screen.setColor(Color(r, g, b));
-			screen.setPixel(posx, posy, false);
+			screen.setPixel(pos_x, pos_y, false);
 		}
 	}
 	if (lock) {
@@ -54,21 +54,21 @@ void StarField::render(Screen &screen, int x, int y, bool lock) {
 	}
 }
 
-void StarField::update(float deltaZ) {
-	for (int i = 0; i < numberOfStars; i++) {
-		stars[i].z += deltaZ;
-		if (stars[i].z > far) {
-			stars[i].z -= far - near;
-		} else if (stars[i].z < near) {
-			stars[i].z += far - near;
+void StarField::update(float dz) {
+	for (int i = 0; i < _number_of_stars; i++) {
+		_stars[i].z += dz;
+		if (_stars[i].z > _far) {
+			_stars[i].z -= _far - _near;
+		} else if (_stars[i].z < _near) {
+			_stars[i].z += _far - _near;
 		}
 	}
 }
 
 void StarField::setColor(Color color) {
-	StarField::color = color;
+  _color = color;
 }
 
 void StarField::setBackground(Color color) {
-	background = color;
+	_background = color;
 }

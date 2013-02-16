@@ -4,7 +4,7 @@
 #include "Screen.h"
 
 class Animation {
-	float _millisPerFrame, _deltaMillis;
+	float _millis_per_frame, _delta_millis;
 
 	public:
 		Animation(unsigned int fps);

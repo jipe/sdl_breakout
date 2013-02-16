@@ -9,6 +9,18 @@
 #include <vector>
 
 class Screen {
+  int _width, _height;
+  SDL_Surface* _surface;
+  Color _color, _background;
+  unsigned int _color_pixel, _background_pixel;
+  std::vector<SDL_Surface*> _image_store;
+
+  void _drawRect(int x0, int y0, int x1, int y1);
+  void _fillRect(int x0, int y0, int x1, int y1);
+  inline void _drawPixel(int x, int y) { static_cast<Uint32*>(_surface->pixels)[y*_surface->w + x] = _color_pixel; }
+
+  Screen& operator = (const Screen &screen) { return *this; }
+
 	public:
 		Screen(int width, int height);
 		~Screen();
@@ -24,37 +36,24 @@ class Screen {
 		void drawLine(int x0, int y0, int x1, int y1, bool antialias = false);
 		void drawRect(int x0, int y0, int x1, int y1, bool lock = true);
 		void fillRect(int x0, int y0, int x1, int y1, bool lock = true);
-		void drawImage(int imageHandle, int x, int y);
-		void drawImage(int imageHandle, int x, int y, const SDL_Rect &src);
+		void drawImage(int image_handle, int x, int y);
+		void drawImage(int image_handle, int x, int y, const SDL_Rect &src);
 		void drawSurface(SDL_Surface *s, int x, int y, const SDL_Rect &src);
-		void drawSurface(SDL_Surface *s, int x, int y, int rotateDegrees, const SDL_Rect &src);
+		void drawSurface(SDL_Surface *s, int x, int y, int rotate_degrees, const SDL_Rect &src);
 
 		void flush() const;
 
-		const ImageInfo loadImage(std::string fileName);
-		const ImageInfo getImageInfo(int imageHandle) const;
+		const ImageInfo loadImage(std::string filename);
+		const ImageInfo getImageInfo(int image_handle) const;
 
 		inline int getHeight() { 
-			return height; 
+			return _height; 
 		}
 
 		inline int getWidth() { 
-			return width; 
+			return _width; 
 		}
 
-
-	private:
-		int width, height;
-		SDL_Surface* surface;
-		Color color, background;
-		unsigned int colorPixel, backgroundPixel;
-    std::vector<SDL_Surface*> _imageStore;
-
-		void _drawRect(int x0, int y0, int x1, int y1);
-		void _fillRect(int x0, int y0, int x1, int y1);
-    inline void _drawPixel(int x, int y) { static_cast<Uint32*>(surface->pixels)[y*surface->w + x] = colorPixel; }
-
-    Screen& operator = (const Screen &screen) { return *this; }
 };
 
 #endif

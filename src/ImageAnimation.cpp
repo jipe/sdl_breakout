@@ -6,34 +6,34 @@
 
 using namespace std;
 
-ImageAnimation::ImageAnimation(Screen &screen, int imageHandle, int frameWidth, int fps) : 
+ImageAnimation::ImageAnimation(Screen &screen, int image_handle, int frame_width, int fps) : 
 		Animation(fps),
-		_imageHandle(imageHandle), 
-		_framePtr(0),
-		_frameWidth(frameWidth),
-		_numberOfFrames(screen.getImageInfo(imageHandle).width / frameWidth),
-		_imageWidth(screen.getImageInfo(imageHandle).width),
-		_imageHeight(screen.getImageInfo(imageHandle).height) {
+		_image_handle(image_handle), 
+		_frame_ptr(0),
+		_frame_width(frame_width),
+		_number_of_frames(screen.getImageInfo(image_handle).width / frame_width),
+		_image_width(screen.getImageInfo(image_handle).width),
+		_image_height(screen.getImageInfo(image_handle).height) {
 }
 
 bool ImageAnimation::nextFrame() {
-	if (++_framePtr < _numberOfFrames) {
+	if (++_frame_ptr < _number_of_frames) {
 		return true;
 	} else {
-		_framePtr = 0;
+		_frame_ptr = 0;
 		return false;
 	}
 }
 
 void ImageAnimation::setFrame(int frame) {
-	_framePtr = frame;
+	_frame_ptr = frame;
 }
 
 void ImageAnimation::render(Screen &screen, int x, int y) const {
 	SDL_Rect rect;
-	rect.x = _framePtr * _frameWidth;
+	rect.x = _frame_ptr * _frame_width;
 	rect.y = 0;
-	rect.w = _frameWidth;
-	rect.h = _imageHeight;
-	screen.drawImage(_imageHandle, x, y, rect);
+	rect.w = _frame_width;
+	rect.h = _image_height;
+	screen.drawImage(_image_handle, x, y, rect);
 }

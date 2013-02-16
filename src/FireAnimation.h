@@ -9,10 +9,10 @@
 class FireAnimation : public Animation {
 
 	int _width, _height;
-	int _ignitionPoints;
+	int _ignition_points;
 
 	public:
-		FireAnimation(int width, int height, int ignitionPoints, int fps);
+		FireAnimation(int width, int height, int ignition_points, int fps);
 		~FireAnimation();
 
 		void render(Screen &screen, int x, int y);

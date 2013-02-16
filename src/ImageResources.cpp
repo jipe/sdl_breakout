@@ -5,47 +5,47 @@
 #include <iostream>
 
 ImageResources::ImageResources(Screen &screen) {
-	_batImageInfo = screen.loadImage("images/bat.png");
-	_ballImageInfo = screen.loadImage("images/ball.png");
-	_redBrickImageInfo = screen.loadImage("images/brick_red.png");
-	_greenBrickImageInfo = screen.loadImage("images/brick_green.png");
-	_blueBrickImageInfo = screen.loadImage("images/brick_blue.png");
-	_greyBrickImageInfo = screen.loadImage("images/brick_grey.png");
-	_borderImageInfo = screen.loadImage("images/background.png");
-	_greySlateImageInfo = screen.loadImage("images/grey_slate.png");
+	_bat_image_info = screen.loadImage("images/bat.png");
+	_ball_image_info = screen.loadImage("images/ball.png");
+	_red_brick_image_info = screen.loadImage("images/brick_red.png");
+	_green_brick_image_info = screen.loadImage("images/brick_green.png");
+	_blue_brick_image_info = screen.loadImage("images/brick_blue.png");
+	_grey_brick_image_info = screen.loadImage("images/brick_grey.png");
+	_border_image_info = screen.loadImage("images/background.png");
+	_grey_slate_image_info = screen.loadImage("images/grey_slate.png");
 }
 
 void ImageResources::init(Screen &screen) {
 }
 
 ImageInfo ImageResources::getBatImageInfo() const {
-	return _batImageInfo;
+	return _bat_image_info;
 }
 
 ImageInfo ImageResources::getBallImageInfo() const {
-	return _ballImageInfo;
+	return _ball_image_info;
 }
 
 ImageInfo ImageResources::getRedBrickImageInfo() const {
-	return _redBrickImageInfo;
+	return _red_brick_image_info;
 }
 
 ImageInfo ImageResources::getGreenBrickImageInfo() const {
-	return _greenBrickImageInfo;
+	return _green_brick_image_info;
 }
 
 ImageInfo ImageResources::getBlueBrickImageInfo() const {
-	return _blueBrickImageInfo;
+	return _blue_brick_image_info;
 }
 
 ImageInfo ImageResources::getGreyBrickImageInfo() const {
-	return _greyBrickImageInfo;
+	return _grey_brick_image_info;
 }
 
 ImageInfo ImageResources::getBorderImageInfo() const {
-	return _borderImageInfo;
+	return _border_image_info;
 }
 
 ImageInfo ImageResources::getGreySlateImageInfo() const {
-	return _greySlateImageInfo;
+	return _grey_slate_image_info;
 }
