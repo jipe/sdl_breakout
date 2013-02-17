@@ -5,10 +5,10 @@
 #include "Screen.h"
 
 class Edge {
-	const Vector2 &_p1, &_p2;
+	Vector2 &_p1, &_p2;
 
 	public:
-		Edge(const Vector2 &p1, const Vector2 &p2);
+		Edge(Vector2 &p1, Vector2 &p2);
 
 		const Vector2& p1() const { return _p1; } 
 		const Vector2& p2() const { return _p2; }

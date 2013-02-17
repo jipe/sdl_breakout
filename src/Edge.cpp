@@ -5,7 +5,7 @@
 
 #include "math.h"
 
-Edge::Edge(const Vector2 &p1, const Vector2 &p2) : _p1(p1), _p2(p2) {
+Edge::Edge(Vector2 &p1, Vector2 &p2) : _p1(p1), _p2(p2) {
 }
 
 bool Edge::intersects(const Edge &edge) const {
