@@ -16,6 +16,7 @@ class Edge {
 		bool intersects(const Edge &edge) const;
     void render(Screen &screen) const;
 
+    Edge& operator=(const Edge &edge);
 };
 
 #endif

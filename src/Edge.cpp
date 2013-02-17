@@ -31,3 +31,9 @@ bool Edge::intersects(const Edge &edge) const {
 void Edge::render(Screen &screen) const {
   screen.drawLine(p1().x, p1().y, p2().x, p2().y);
 }
+
+Edge& Edge::operator=(const Edge &edge) {
+  _p1 = edge.p1();
+  _p2 = edge.p2();
+  return *this;
+}
