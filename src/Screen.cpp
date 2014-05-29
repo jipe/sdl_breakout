@@ -292,6 +292,12 @@ void Screen::fillRect(int x0, int y0, int x1, int y1, bool lock) {
 	}
 }
 
+void Screen::drawCircle(int x, int y, int radius) {
+}
+
+void Screen::fillCircle(int x, int y, int radius) {
+}
+
 void Screen::drawImage(int image_handle, int x, int y) {
 	if (image_handle >= 0 && image_handle < _image_store.size()) {
 		SDL_Surface* image = _image_store[image_handle];

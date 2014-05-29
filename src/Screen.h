@@ -36,6 +36,9 @@ class Screen {
 		void drawLine(int x0, int y0, int x1, int y1, bool antialias = false);
 		void drawRect(int x0, int y0, int x1, int y1, bool lock = true);
 		void fillRect(int x0, int y0, int x1, int y1, bool lock = true);
+    void drawCircle(int x, int y, int radius);
+    void fillCircle(int x, int y, int radius);
+
 		void drawImage(int image_handle, int x, int y);
 		void drawImage(int image_handle, int x, int y, const SDL_Rect &src);
 		void drawSurface(SDL_Surface *s, int x, int y, const SDL_Rect &src);
