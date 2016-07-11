@@ -17,7 +17,7 @@ enum BrickIndex { RED = 0, GREEN = 1, BLUE = 2, GREY = 3 };
 
 BreakOut::BreakOut(int width, int height, int fps) : 
 		Application(width, height, fps), 
-		_star_field(width, height, 5750),
+		_star_field(width, height, 5000),
     _image_resources(getScreen()) {
 
   for (int i = 0; i < 20; i++) {
@@ -60,6 +60,7 @@ void BreakOut::render() {
 	screen.setColor(fg);
   screen.lockSurface();
   screen.clear();
+  _star_field.render(screen, 0, 0, false);
 
   for (int i = 0; i < _edges.size(); i++) {
     bool intersects = false;

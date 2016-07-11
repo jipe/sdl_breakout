@@ -9,7 +9,7 @@ typedef struct {
 } Star;
 
 class StarField {
-  int _number_of_stars, _width, _height;
+  int   _number_of_stars, _width, _height;
   float _near, _far;
   Color _color, _background;
   Star* _stars;
@@ -17,7 +17,7 @@ class StarField {
   void init();
 
 	public:
-		StarField(int width, int height, int _number_of_stars);
+		StarField(int width, int height, int number_of_stars);
 		~StarField();
 
 		void render(Screen &screen, int x, int y, bool lock = true);
