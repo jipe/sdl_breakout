@@ -1,6 +1,8 @@
 #ifndef STARFIELD_H
 #define STARFIELD_H
 
+#include <vector>
+
 #include "Screen.h"
 #include "Color.h"
 
@@ -12,13 +14,10 @@ class StarField {
   int   _number_of_stars, _width, _height;
   float _near, _far;
   Color _color, _background;
-  Star* _stars;
-
-  void init();
+  std::vector<Star> _stars;
 
 	public:
 		StarField(int width, int height, int number_of_stars);
-		~StarField();
 
 		void render(Screen &screen, int x, int y, bool lock = true);
 		void update(float deltaZ);

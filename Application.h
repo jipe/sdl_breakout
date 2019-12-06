@@ -20,13 +20,8 @@ class Application {
 		void pause();
 		void resume();
 		
-		inline int getWidth() { 
-			return _width;
-		}
-
-		inline int getHeight() {
-			return _height;
-		}
+		int getWidth() { return _width; }
+		int getHeight() { return _height; }
 
 	protected:
 		virtual void updateModel(float millis) = 0;

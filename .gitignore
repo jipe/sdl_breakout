@@ -1,5 +1,5 @@
-src/breakout
-src/sdl_breakout
+breakout
+sdl_breakout
 *.o
 .*.swp
 *.tar.gz

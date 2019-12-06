@@ -5,6 +5,7 @@
 #include <iostream>
 
 ImageResources::ImageResources(Screen &screen) {
+/*
 	_bat_image_info = screen.loadImage("images/bat.png");
 	_ball_image_info = screen.loadImage("images/ball.png");
 	_red_brick_image_info = screen.loadImage("images/brick_red.png");
@@ -13,6 +14,7 @@ ImageResources::ImageResources(Screen &screen) {
 	_grey_brick_image_info = screen.loadImage("images/brick_grey.png");
 	_border_image_info = screen.loadImage("images/background.png");
 	_grey_slate_image_info = screen.loadImage("images/grey_slate.png");
+*/
 }
 
 void ImageResources::init(Screen &screen) {
