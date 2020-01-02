@@ -1,8 +1,15 @@
 #include "Color.h"
+#include "math.h"
 
 #include <SDL2/SDL.h>
 
 Color::Color(Uint8 r, Uint8 g, Uint8 b, Uint8 a) : _r(r), _g(g), _b(b), _a(a) {
+}
+
+Color::Color(Vector3& v)
+  : _r(static_cast<Uint8>(255 < v.x ? 255 : v.x)),
+    _g(static_cast<Uint8>(255 < v.y ? 255 : v.y)),
+    _b(static_cast<Uint8>(255 < v.z ? 255 : v.z)) {
 }
 
 Color Color::RED           (255,0,0);

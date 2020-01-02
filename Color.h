@@ -1,6 +1,8 @@
 #ifndef COLOR_H
 #define COLOR_H
 
+#include "Vector3.h"
+
 #include <SDL2/SDL.h>
 
 class Color {
@@ -8,6 +10,7 @@ class Color {
 
 public:
 	Color(Uint8 r, Uint8 g, Uint8 b, Uint8 a = 0);
+  Color(Vector3& v);
 
 	inline Uint8 getR() {
 		return _r;

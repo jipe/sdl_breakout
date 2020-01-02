@@ -7,6 +7,7 @@
 #include "Brick.h"
 #include "Edge.h"
 #include "Color.h"
+#include "Vertex.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -61,6 +62,7 @@ void BreakOut::render() {
   screen.clear();
   _star_field.render(screen, 0, 0, false);
 
+  /*
   for (int i = 0; i < _edges.size(); i++) {
     bool intersects = false;
     for (int j = 0; j < _edges.size(); j++) {
@@ -72,6 +74,29 @@ void BreakOut::render() {
     screen.setColor(intersects ? Color::RED : Color::GREEN);
     _edges[i].render(screen);
   }
+  */
 
+  Vector3 p2(20,20,3),
+          p3(200,400,3),
+          p1(340,250,3),
+          p4(500, 500, 3);
+
+  Vector3 n1(0,0,1),
+          n2(0,0.5f,0.5f),
+          n3(0,0,1),
+          n4(0,0,1);
+
+  Vector2 tc1(0,1),
+          tc2(0,1),
+          tc3(0,1),
+          tc4(0,1);
+
+  Vertex v1(p1, n1, Color::RED, tc1),
+         v2(p2, n2, Color::GREEN, tc2),
+         v3(p3, n3, Color::BLUE, tc3),
+         v4(p4, n4, Color::YELLOW, tc4);
+
+  screen.fillTriangle(v1, v2, v3);
+  screen.fillTriangle(v1, v3, v4);
 	screen.flush();
 }
