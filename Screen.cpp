@@ -42,17 +42,18 @@ Screen::Screen(int width, int height)
   }
 
   _pixels = new Uint32[_width*_height];
-  _textures = new SDL_Surface[32];
 }
 
 Screen::~Screen() {
+  for (vector<SDL_Surface*>::iterator iter = _images.begin(); iter != _images.end(); iter++) {
+    SDL_FreeSurface(*iter);
+  }
   SDL_FreeFormat(_pixelFormat);
   SDL_DestroyTexture(_texture);
   SDL_DestroyRenderer(_renderer);
   SDL_DestroyWindow(_window);
   SDL_Quit();
   delete[] _pixels;
-  delete[] _textures;
 }
 
 void Screen::setPixel(int x, int y) {
@@ -61,7 +62,7 @@ void Screen::setPixel(int x, int y) {
 
 Color Screen::getPixel(int x, int y) const {
   Uint8 r, g, b, a;
-  SDL_GetRGBA(_pixels[y*_width + x], _pixelFormat,& r,& g,& b,& a);
+  SDL_GetRGBA(_pixels[y*_width + x], _pixelFormat, &r, &g, &b, &a);
   return Color(r, g, b, a);
 }
 
@@ -296,13 +297,42 @@ void Screen::_scan_convert(RasterEdge& left_edge, RasterEdge& right_edge) {
       Vector3 d_color((right_edge.color - left_edge.color) / static_cast<float>(right_edge.x - left_edge.x));
       Vector3 normal(left_edge.normal);
       Vector3 d_normal((right_edge.normal - left_edge.normal) / static_cast<float>(right_edge.x - left_edge.x));
-      Vector2 texture_coord(left_edge.texture_coord);
-      Vector2 d_texture_coord((right_edge.texture_coord - left_edge.texture_coord) / static_cast<float>(right_edge.x - left_edge.x));
 
       for (int x = left_edge.x; x < right_edge.x; x++) {
         setColor(color);
         _drawPixel(x, y);
         color += d_color;
+        normal += d_normal;
+      }
+    }
+    left_edge.nextLine();
+    right_edge.nextLine();
+  }
+}
+
+void Screen::_scan_convert_textured(RasterEdge& left_edge, RasterEdge& right_edge, int texture) {
+  int y1 = min(left_edge.y, right_edge.y);
+  int y2 = min(left_edge.y_max, right_edge.y_max);
+
+  SDL_Surface* surface = _images[texture];
+
+  for (int y = y1; y < y2; y++) {
+    if (right_edge.x - left_edge.x > 0) {
+      // Values to be interpolated across scanline
+      Vector3 normal(left_edge.normal);
+      Vector3 d_normal((right_edge.normal - left_edge.normal) / static_cast<float>(right_edge.x - left_edge.x));
+      Vector2 texture_coord(left_edge.texture_coord);
+      Vector2 d_texture_coord((right_edge.texture_coord - left_edge.texture_coord) / static_cast<float>(right_edge.x - left_edge.x));
+
+      for (int x = left_edge.x; x < right_edge.x; x++) {
+        int u = static_cast<int>(texture_coord.x * surface->w);
+        int v = static_cast<int>(texture_coord.y * surface->h);
+        if (u < 0) { u = 0; }
+        if (u >= surface->w) { u = surface->w - 1; }
+        if (v < 0) { v = 0; }
+        if (v >= surface->h) { v = surface->h - 1; }
+        _color_pixel = ((Uint32*) surface->pixels)[surface->w*v + u];
+        _drawPixel(x, y);
         normal += d_normal;
         texture_coord += d_texture_coord;
       }
@@ -312,7 +342,7 @@ void Screen::_scan_convert(RasterEdge& left_edge, RasterEdge& right_edge) {
   }
 }
 
-void Screen::fillTriangle(const Vertex& v1, const Vertex& v2, const Vertex& v3) {
+void Screen::fillTriangle(const Vertex& v1, const Vertex& v2, const Vertex& v3, int texture) {
   RasterPoint p1(v1),
               p2(v2),
               p3(v3);
@@ -344,10 +374,18 @@ void Screen::fillTriangle(const Vertex& v1, const Vertex& v2, const Vertex& v3) 
 
     if (d < 0) {
       // p1p3 is left edge
-      _scan_convert(p1p3, p1p2);
+      if (texture < 0) {
+        _scan_convert(p1p3, p1p2);
+      } else {
+        _scan_convert_textured(p1p3, p1p2, texture);
+      }
     } else {
       // p1p2 is left edge
-      _scan_convert(p1p2, p1p3);
+      if (texture < 0) {
+        _scan_convert(p1p2, p1p3);
+      } else {
+        _scan_convert_textured(p1p2, p1p3, texture);
+      }
     }
 
     if (p3.y > p2.y) {
@@ -355,13 +393,22 @@ void Screen::fillTriangle(const Vertex& v1, const Vertex& v2, const Vertex& v3) 
       RasterEdge p2p3(p2, p3);
       if (d < 0) {
         // p1p3 is left edge
-        _scan_convert(p1p3, p2p3);
+        if (texture < 0) {
+          _scan_convert(p1p3, p2p3);
+        } else {
+          _scan_convert_textured(p1p3, p2p3, texture);
+        }
       } else {
         // p2p3 is left edge
-        _scan_convert(p2p3, p1p3);
+        if (texture < 0) {
+          _scan_convert(p2p3, p1p3);
+        } else {
+          _scan_convert_textured(p2p3, p1p3, texture);
+        }
       }
     }
   } else if (p2.y < p3.y) {
+    std::cout << "p1p2 is horizontal" << std::endl;
     // p2p3 is non-horizontal
     RasterEdge p1p3(p1, p3),
                p2p3(p2, p3);
@@ -371,22 +418,23 @@ void Screen::fillTriangle(const Vertex& v1, const Vertex& v2, const Vertex& v3) 
     float d = (p3.x - p1.x) * (p3.y - p2.y) - (p3.y - p1.y) * (p3.x - p2.x);
 
     if (d < 0) {
-      // p1p3 is left edge
-      _scan_convert(p1p3, p2p3);
-    } else {
+      std::cout << "p1p3 is left edge" << std::endl;
       // p2p3 is left edge
-      _scan_convert(p2p3, p1p3);
+      if (texture < 0) {
+        _scan_convert(p2p3, p1p3);
+      } else {
+        _scan_convert_textured(p2p3, p1p3, texture);
+      }
+    } else {
+      std::cout << "p2p3 is left edge" << std::endl;
+      // p1p3 is left edge
+      if (texture < 0) {
+        _scan_convert(p1p3, p2p3);
+      } else {
+        _scan_convert_textured(p1p3, p2p3, texture);
+      }
     }
   }
-}
-
-void Screen::drawSurface(SDL_Surface* s, int x, int y, const SDL_Rect& src) {
-  SDL_Rect dest;
-  dest.x = x;
-  dest.y = y;
-}
-
-void Screen::drawSurface(SDL_Surface* s, int x, int y, int rotate_degrees, const SDL_Rect& src) {
 }
 
 void Screen::flush() const {
@@ -394,4 +442,51 @@ void Screen::flush() const {
   SDL_RenderClear(_renderer);
   SDL_RenderCopy(_renderer, _texture, NULL, NULL);
   SDL_RenderPresent(_renderer);
+}
+
+/*
+void Screen::drawImage(int image_handle, int x, int y) {
+  if (image_handle >= 0 && image_handle < _images.size()) {
+    SDL_Surface* image = _images[image_handle];
+    SDL_Rect dest;
+    dest.x = x;
+    dest.y = y;
+    SDL_BlitSurface(image, 0, _surface, &dest);
+  }
+}
+
+void Screen::drawImage(int image_handle, int x, int y, const SDL_Rect &src) {
+  if (image_handle >= 0 && image_handle < _images.size()) {
+    drawSurface(_images[image_handle], x, y, src);
+  }
+}
+*/
+
+const ImageInfo Screen::loadImage(std::string filename) {
+  std::cout << "Loading image '" << filename << "'" << std::endl;
+  SDL_Surface* surface = IMG_Load(filename.c_str());
+  if (surface) {
+    std::cout << "Converting surface" << std::endl;
+    SDL_Surface* converted_surface = SDL_ConvertSurfaceFormat(surface, SDL_PIXELFORMAT_ARGB8888, 0);
+    if (converted_surface) {
+      std::cout << "Freeing loaded surface" << std::endl;
+      SDL_FreeSurface(surface);
+      std::cout << "Adding converted surface" << std::endl;
+      _images.push_back(converted_surface);
+      std::cout << "Returning" << std::endl;
+      return ImageInfo(_images.size()-1, converted_surface->w, converted_surface->h);
+    }
+  } else {
+    std::cout << "Error loading image" << std::endl;
+  }
+  return ImageInfo(-1, 0, 0);
+}
+
+const ImageInfo Screen::getImageInfo(int image_handle) const {
+  if (image_handle >= 0 && image_handle < _images.size()) {
+    SDL_Surface *image = _images[image_handle];
+    return ImageInfo(image_handle, image->w, image->h);
+  } else {
+    return ImageInfo(-1, 0, 0);
+  }
 }

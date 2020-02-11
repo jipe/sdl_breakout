@@ -19,6 +19,7 @@ class BreakOut : public Application, public CollisionResolver {
   std::vector<Brick*> _game_objects;
   std::vector<Vector2> _points;
   std::vector<Edge> _edges;
+  ImageInfo _texture;
 
 	void handleEvent(SDL_Event &event);
 	void updateModel(float millis);

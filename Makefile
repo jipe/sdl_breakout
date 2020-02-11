@@ -3,7 +3,8 @@ STRIP := $(shell which strip)
 CPPFLAGS = -std=c++14 -g
 EXE = sdl_breakout
 LIBS = -lSDL2 -lSDL2_image
-OBJECTS := $(patsubst %.cpp,%.o,$(wildcard *.cpp))
+SOURCES := $(wildcard *.cpp)
+OBJECTS := $(patsubst %.cpp,%.o,$(SOURCES))
 TARBALL = sdl-breakout.tar.gz
 TMP = /tmp
 DIST_DIR = sdl-breakout

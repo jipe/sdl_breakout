@@ -19,6 +19,7 @@ enum BrickIndex { RED = 0, GREEN = 1, BLUE = 2, GREY = 3 };
 BreakOut::BreakOut(int width, int height, int fps) : 
 		Application(width, height, fps), 
 		_star_field(width, height, 5000),
+    _texture(getScreen().loadImage("images/pigs.png")),
     _image_resources(getScreen()) {
 
   for (int i = 0; i < 10; i++) {
@@ -76,27 +77,23 @@ void BreakOut::render() {
   }
   */
 
-  Vector3 p2(20,20,3),
-          p3(200,400,3),
-          p1(340,250,3),
-          p4(500, 500, 3);
+  Vector3 p1(0,0,3),
+          p2(0,500,3),
+          p3(500,500,3);
 
   Vector3 n1(0,0,1),
           n2(0,0.5f,0.5f),
-          n3(0,0,1),
-          n4(0,0,1);
+          n3(0,0,1);
 
   Vector2 tc1(0,1),
-          tc2(0,1),
-          tc3(0,1),
-          tc4(0,1);
+          tc2(1,0),
+          tc3(1,1);
 
   Vertex v1(p1, n1, Color::RED, tc1),
          v2(p2, n2, Color::GREEN, tc2),
-         v3(p3, n3, Color::BLUE, tc3),
-         v4(p4, n4, Color::YELLOW, tc4);
+         v3(p3, n3, Color::BLUE, tc3);
 
-  screen.fillTriangle(v1, v2, v3);
-  screen.fillTriangle(v1, v3, v4);
+  screen.fillTriangle(v1, v2, v3, _texture.image_handle);
+  //screen.fillTriangle(v1, v2, v3);
 	screen.flush();
 }
