@@ -20,6 +20,8 @@ class BreakOut : public Application, public CollisionResolver {
   std::vector<Vector2> _points;
   std::vector<Edge> _edges;
   ImageInfo _texture;
+  Vector3 _p1, _p2, _p3;
+  float _theta;
 
 	void handleEvent(SDL_Event &event);
 	void updateModel(float millis);

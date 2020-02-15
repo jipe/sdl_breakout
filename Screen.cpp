@@ -408,7 +408,6 @@ void Screen::fillTriangle(const Vertex& v1, const Vertex& v2, const Vertex& v3, 
       }
     }
   } else if (p2.y < p3.y) {
-    std::cout << "p1p2 is horizontal" << std::endl;
     // p2p3 is non-horizontal
     RasterEdge p1p3(p1, p3),
                p2p3(p2, p3);
@@ -418,7 +417,6 @@ void Screen::fillTriangle(const Vertex& v1, const Vertex& v2, const Vertex& v3, 
     float d = (p3.x - p1.x) * (p3.y - p2.y) - (p3.y - p1.y) * (p3.x - p2.x);
 
     if (d < 0) {
-      std::cout << "p1p3 is left edge" << std::endl;
       // p2p3 is left edge
       if (texture < 0) {
         _scan_convert(p2p3, p1p3);
@@ -426,7 +424,6 @@ void Screen::fillTriangle(const Vertex& v1, const Vertex& v2, const Vertex& v3, 
         _scan_convert_textured(p2p3, p1p3, texture);
       }
     } else {
-      std::cout << "p2p3 is left edge" << std::endl;
       // p1p3 is left edge
       if (texture < 0) {
         _scan_convert(p1p3, p2p3);
