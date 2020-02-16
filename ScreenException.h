@@ -6,13 +6,13 @@
 class ScreenException {
   std::string _message;
 
-	public:
-		ScreenException(std::string message) : _message(message) {
-		}
+  public:
+    ScreenException(std::string message) : _message(message) {
+    }
 
-		std::string getMessage() { 
-			return _message; 
-		}
+    std::string getMessage() {
+      return _message;
+    }
 
 };
 

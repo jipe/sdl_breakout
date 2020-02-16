@@ -4,10 +4,10 @@
 #include "Collision.h"
 
 class CollisionResolver {
-	public:
-		CollisionResolver();
+  public:
+    CollisionResolver();
 
-		void resolve(Collision collision);
+    void resolve(Collision collision);
 };
 
 #endif

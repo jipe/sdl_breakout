@@ -10,10 +10,10 @@ Animation::~Animation() {
 }
 
 void Animation::update(float millis) {
-	_delta_millis += millis;
-	if (_delta_millis > _millis_per_frame) {
-		nextFrame();
-		_delta_millis -= _millis_per_frame;
-	}
+  _delta_millis += millis;
+  if (_delta_millis > _millis_per_frame) {
+    nextFrame();
+    _delta_millis -= _millis_per_frame;
+  }
 }
 

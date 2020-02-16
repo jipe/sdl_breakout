@@ -9,7 +9,7 @@ struct RasterPoint {
   int x, y;
   Vector3 color;
   Vector3 normal;
-	Vector2 texture_coord;
+  Vector2 texture_coord;
 
   RasterPoint(const Vertex &v);
 };

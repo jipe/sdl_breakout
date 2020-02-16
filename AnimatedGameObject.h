@@ -11,17 +11,17 @@
 using namespace std;
 
 class AnimatedGameObject {
-	vector<Animation*> _animations;
-	int _animation_ptr;
-	Vector2 _position;
+  vector<Animation*> _animations;
+  int _animation_ptr;
+  Vector2 _position;
 
 public:
-	AnimatedGameObject(const Vector2 position);
+  AnimatedGameObject(const Vector2 position);
 
-	int add(Animation *animation);
-	void setCurrentAnimation(int handle);
+  int add(Animation *animation);
+  void setCurrentAnimation(int handle);
 
-	void render(Screen &screen) const;
+  void render(Screen &screen) const;
 };
 
 #endif

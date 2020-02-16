@@ -7,7 +7,7 @@
 #include "Color.h"
 
 typedef struct {
-	float x, y, z;
+  float x, y, z;
 } Star;
 
 class StarField {
@@ -16,13 +16,13 @@ class StarField {
   Color _color, _background;
   std::vector<Star> _stars;
 
-	public:
-		StarField(int width, int height, int number_of_stars);
+  public:
+    StarField(int width, int height, int number_of_stars);
 
-		void render(Screen &screen, int x, int y, bool lock = true);
-		void update(float deltaZ);
-		void setColor(Color c);
-		void setBackground(Color c);
+    void render(Screen &screen, int x, int y, bool lock = true);
+    void update(float deltaZ);
+    void setColor(Color c);
+    void setBackground(Color c);
 
 };
 

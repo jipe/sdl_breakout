@@ -11,15 +11,15 @@ AnimatedGameObject::AnimatedGameObject(const Vector2 position) : _position(posit
 }
 
 int AnimatedGameObject::add(Animation *animation) {
-	int index = _animations.size();
-	_animations.push_back(animation);
-	return index;
+  int index = _animations.size();
+  _animations.push_back(animation);
+  return index;
 }
 
 void AnimatedGameObject::setCurrentAnimation(int handle) {
-	_animation_ptr = handle;
+  _animation_ptr = handle;
 }
 
 void AnimatedGameObject::render(Screen &screen) const {
-	_animations[_animation_ptr]->render(screen, static_cast<int>(_position.x), static_cast<int>(_position.y));
+  _animations[_animation_ptr]->render(screen, static_cast<int>(_position.x), static_cast<int>(_position.y));
 }

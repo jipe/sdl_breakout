@@ -11,13 +11,13 @@ using namespace std;
 class CollisionDetector {
   vector<CollisionObject*> _objects;
 
-	public:
-		CollisionDetector();
+  public:
+    CollisionDetector();
 
-		void add(CollisionObject &obj);
-		void remove(CollisionObject &obj);
+    void add(CollisionObject &obj);
+    void remove(CollisionObject &obj);
 
-		vector<Collision> update(float millis);
+    vector<Collision> update(float millis);
 
 };
 

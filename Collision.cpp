@@ -6,13 +6,13 @@ Collision::Collision(float millis, CollisionObject &obj1, CollisionObject &obj2)
 }
 
 float Collision::getMillis() const {
-	return millis;
+  return millis;
 }
 
 CollisionObject& Collision::getObject1() {
-	return obj1;
+  return obj1;
 }
 
 CollisionObject& Collision::getObject2() {
-	return obj2;
+  return obj2;
 }

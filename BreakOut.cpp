@@ -18,8 +18,8 @@ using namespace std;
 enum BrickIndex { RED = 0, GREEN = 1, BLUE = 2, GREY = 3 };
 
 BreakOut::BreakOut(int width, int height, int fps) : 
-		Application(width, height, fps), 
-		_star_field(width, height, 5000),
+    Application(width, height, fps),
+    _star_field(width, height, 5000),
     _texture(getScreen().loadImage("images/pigs.png")),
     _image_resources(getScreen()),
     _p1(static_cast<float>(width) / 5.0f, 4.0f * static_cast<float>(height) / 5.0f, 1),
@@ -46,17 +46,17 @@ BreakOut::~BreakOut() {
 }
 
 void BreakOut::handleEvent(SDL_Event &event) {
-	switch (event.type) {
-		case SDL_MOUSEMOTION:
-			break;
-		default:
-			Application::handleEvent(event);
-			break;
-	}
+  switch (event.type) {
+    case SDL_MOUSEMOTION:
+      break;
+    default:
+      Application::handleEvent(event);
+      break;
+  }
 }
 
 void BreakOut::updateModel(float millis) {
-	_star_field.update(-0.007f);
+  _star_field.update(-0.007f);
   _theta += .02f;
   if (_theta > 360.0f) {
     _theta = 0.0f;
@@ -65,10 +65,10 @@ void BreakOut::updateModel(float millis) {
 
 void BreakOut::render() {
   Screen &screen = getScreen();
-	Color bg = Color::BLACK;
-	Color fg = Color::RED;
-	screen.setBackground(bg);
-	screen.setColor(fg);
+  Color bg = Color::BLACK;
+  Color fg = Color::RED;
+  screen.setBackground(bg);
+  screen.setColor(fg);
   screen.clear();
   _star_field.render(screen, 0, 0, false);
 
@@ -115,5 +115,5 @@ void BreakOut::render() {
          v3(p3, n3, Color::BLUE, tc3);
 
   screen.fillTriangle(v1, v2, v3, _texture.image_handle);
-	screen.flush();
+  screen.flush();
 }

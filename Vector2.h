@@ -3,17 +3,17 @@
 
 class Vector2 {
 public:
-	float x, y;
+  float x, y;
 
-	Vector2(float x, float y);
-	Vector2(const Vector2 &v1, const Vector2 &v2);
+  Vector2(float x, float y);
+  Vector2(const Vector2 &v1, const Vector2 &v2);
 
-	Vector2& operator += (const Vector2 &v);
-	Vector2& operator -= (const Vector2 &v);
-	Vector2& operator *= (const float r);
-	Vector2& operator /= (const float r);
+  Vector2& operator += (const Vector2 &v);
+  Vector2& operator -= (const Vector2 &v);
+  Vector2& operator *= (const float r);
+  Vector2& operator /= (const float r);
 
-	Vector2 normalize() const;
+  Vector2 normalize() const;
 };
 
 Vector2 operator + (const Vector2 &v1, const Vector2 &v2);
