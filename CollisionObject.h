@@ -1,7 +1,7 @@
 #ifndef COLLISION_OBJECT_H
 #define COLLISION_OBJECT_H
 
-#include "Vector2.h"
+#include "vector.h"
 
 class CollisionObject {
   int _handle;

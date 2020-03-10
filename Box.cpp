@@ -1,5 +1,5 @@
 #include "Box.h"
-#include "Vector2.h"
+#include "vector.h"
 #include "Edge.h"
 
 Box::Box(float x0, float y0, float x1, float y1) : _p1(x0,y0), _p2(x1,y0), _p3(x1,y1), _p4(x0,y1),

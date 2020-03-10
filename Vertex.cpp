@@ -1,6 +1,5 @@
 #include "Vertex.h"
-#include "Vector2.h"
-#include "Vector3.h"
+#include "vector.h"
 #include "Color.h"
 
 Vertex::Vertex(Vector3& point, Vector3& normal, Color& color, Vector2& texture_coord)

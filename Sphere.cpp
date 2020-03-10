@@ -1,5 +1,5 @@
 #include "Sphere.h"
-#include "Vector2.h"
+#include "vector.h"
 
 Sphere::Sphere(float x, float y, float radius) : Sphere(Vector2(x,y), radius) {
 }

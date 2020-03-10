@@ -8,6 +8,7 @@
 #include "Edge.h"
 #include "Color.h"
 #include "Vertex.h"
+#include "matrix.h"
 
 #include <iostream>
 #include <cstdlib>

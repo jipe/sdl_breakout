@@ -1,7 +1,7 @@
 #ifndef EDGE_H
 #define EDGE_H
 
-#include "Vector2.h"
+#include "vector.h"
 #include "Screen.h"
 
 class Edge {

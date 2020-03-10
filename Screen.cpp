@@ -2,13 +2,11 @@
 #include "Color.h"
 #include "ScreenException.h"
 #include "Vertex.h"
-#include "Vector2.h"
-#include "Vector3.h"
-#include "Matrix2x2.h"
+#include "vector.h"
 #include "math.h"
 #include "RasterPoint.h"
 #include "RasterEdge.h"
-#include "MidpointLineContext.h"
+#include "matrix.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>

@@ -1,7 +1,7 @@
 #ifndef BOX_H
 #define BOX_H
 
-#include "Vector2.h"
+#include "vector.h"
 #include "Edge.h"
 #include "Geometry.h"
 

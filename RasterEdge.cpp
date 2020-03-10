@@ -1,6 +1,6 @@
 #include "RasterEdge.h"
 #include "RasterPoint.h"
-#include "Vector3.h"
+#include "vector.h"
 #include "math.h"
 
 #include <cmath>

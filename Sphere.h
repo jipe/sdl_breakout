@@ -2,7 +2,7 @@
 #define SPHERE_H
 
 #include "Geometry.h"
-#include "Vector2.h"
+#include "vector.h"
 
 class Sphere : public Geometry {
   Vector2 &_center;

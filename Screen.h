@@ -5,7 +5,7 @@
 #include "ImageInfo.h"
 #include "Vertex.h"
 #include "RasterEdge.h"
-#include "Vector3.h"
+#include "vector.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>

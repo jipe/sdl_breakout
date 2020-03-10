@@ -2,7 +2,7 @@
 #define GAME_OBJECT_H
 
 #include "Screen.h"
-#include "Vector2.h"
+#include "vector.h"
 
 #include <vector>
 
