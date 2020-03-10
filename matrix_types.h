@@ -57,7 +57,7 @@ class Matrix4x4 {
     Matrix4x4& operator *= (float r); 
     Matrix4x4& operator /= (float r); 
 
-		Matrix4x4 transpose() const;
+    Matrix4x4 transpose() const;
 };
 
 #endif

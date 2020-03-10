@@ -51,9 +51,9 @@ Vector3 operator / (const Vector3 &v, float r) {
 }
 
 std::ostream& operator << (std::ostream& os, const Vector2& v) {
-	return os << "(" << v.x << "," << v.y << ")";
+  return os << "(" << v.x << "," << v.y << ")";
 }
 
 std::ostream& operator << (std::ostream& os, const Vector3& v) {
-	return os << "(" << v.x << "," << v.y << "," << v.z << ")";
+  return os << "(" << v.x << "," << v.y << "," << v.z << ")";
 }

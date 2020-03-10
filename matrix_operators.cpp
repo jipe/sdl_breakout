@@ -2,11 +2,11 @@
 #include <iostream>
 
 Matrix1x4 operator + (const Matrix1x4& m1, const Matrix1x4& m2) {
-	return Matrix1x4(m1.m11 + m2.m11, m1.m12 + m2.m12, m1.m13 + m2.m12, m1.m14 + m2.m14);
+  return Matrix1x4(m1.m11 + m2.m11, m1.m12 + m2.m12, m1.m13 + m2.m12, m1.m14 + m2.m14);
 }
 
 Matrix1x4 operator - (const Matrix1x4& m1, const Matrix1x4& m2) {
-	return Matrix1x4(m1.m11 - m2.m11, m1.m12 - m2.m12, m1.m13 - m2.m12, m1.m14 - m2.m14);
+  return Matrix1x4(m1.m11 - m2.m11, m1.m12 - m2.m12, m1.m13 - m2.m12, m1.m14 - m2.m14);
 }
 
 Matrix1x4 operator * (const Matrix1x4& m, float r) {
