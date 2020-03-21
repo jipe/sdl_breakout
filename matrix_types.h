@@ -1,12 +1,48 @@
 #ifndef MATRIX_TYPES_H
 #define MATRIX_TYPES_H
 
+class Matrix2x1;
+
+class Matrix1x2 {
+  public:
+    float m11, m12;
+
+    Matrix1x2(float m11, float m12);
+
+    Matrix1x2& operator += (const Matrix1x2& m);
+    Matrix1x2& operator -= (const Matrix1x2& m);
+    Matrix1x2& operator *= (float r);
+    Matrix1x2& operator /= (float r);
+
+    Matrix2x1 transpose() const;
+};
+
+class Matrix2x1 {
+  public:
+    float m11, m21;
+
+    Matrix2x1(float m11, float m21);
+
+    Matrix2x1& operator += (const Matrix2x1& m);
+    Matrix2x1& operator -= (const Matrix2x1& m);
+    Matrix2x1& operator *= (float r);
+    Matrix2x1& operator /= (float r);
+
+    Matrix1x2 transpose() const;
+};
+
 class Matrix2x2 {
   public:
     float m11, m12, m21, m22;
 
     Matrix2x2(float m11, float m12, float m21, float m22);
 
+    Matrix2x2& operator += (const Matrix2x2& m);
+    Matrix2x2& operator -= (const Matrix2x2& m);
+    Matrix2x2& operator *= (float r);
+    Matrix2x2& operator /= (float r);
+
+    Matrix2x2 transpose() const;
     float det() const;
 };
 
