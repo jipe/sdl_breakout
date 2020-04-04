@@ -1,8 +1,8 @@
 #include "Edge.h"
-#include "Vector2.h"
-#include "Matrix2x2.h"
+#include "vector.h"
 #include "Screen.h"
 
+#include "matrix.h"
 #include "math.h"
 
 Edge::Edge(Vector2 &p1, Vector2 &p2) : _p1(p1), _p2(p2) {

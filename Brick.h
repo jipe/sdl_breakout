@@ -6,7 +6,7 @@
 class Brick {
   int _x, _y;
 
-	public:
+  public:
     Brick(int x, int y);
 
     int x() const { return _x; }

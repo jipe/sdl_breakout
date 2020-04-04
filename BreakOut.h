@@ -13,23 +13,25 @@
 #include "Edge.h"
 
 class BreakOut : public Application, public CollisionResolver {
-	StarField _star_field;
-	CollisionDetector _collision_detector;
-	ImageResources _image_resources;
+  StarField _star_field;
+  CollisionDetector _collision_detector;
+  ImageResources _image_resources;
   std::vector<Brick*> _game_objects;
   std::vector<Vector2> _points;
   std::vector<Edge> _edges;
   ImageInfo _texture;
+  Vector3 _p1, _p2, _p3;
+  float _theta;
 
-	void handleEvent(SDL_Event &event);
-	void updateModel(float millis);
-	void render();
+  void handleEvent(SDL_Event &event);
+  void updateModel(float millis);
+  void render();
 
-	void resolve(Collision collision);
-	
-	public:
-		BreakOut(int width, int height, int fps);
-		~BreakOut();
+  void resolve(Collision collision);
+
+  public:
+    BreakOut(int width, int height, int fps);
+    ~BreakOut();
 
 };
 

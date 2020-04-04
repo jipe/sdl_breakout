@@ -1,7 +1,7 @@
 #ifndef GEOMETRY_H
 #define GEOMETRY_H
 
-#include "Vector2.h"
+#include "vector.h"
 
 class Sphere;
 class Box;

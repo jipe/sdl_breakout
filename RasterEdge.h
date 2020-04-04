@@ -2,8 +2,7 @@
 #define RASTER_EDGE_H
 
 #include "RasterPoint.h"
-#include "Vector2.h"
-#include "Vector3.h"
+#include "vector.h"
 
 struct RasterEdge {
   int y, y_max;
