@@ -5,7 +5,7 @@
 
 int main(int argc, char** argv) {
   srand(time(0)); 
-  BreakOut game = BreakOut(800, 800, 20);
+  BreakOut game = BreakOut(800, 800, 50);
   game.run();
   return 0;
 }

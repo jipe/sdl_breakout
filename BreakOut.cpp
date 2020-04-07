@@ -58,7 +58,7 @@ void BreakOut::handleEvent(SDL_Event &event) {
 
 void BreakOut::updateModel(float millis) {
   _star_field.update(-0.007f);
-  _theta += .02f;
+  _theta += .05f;
   if (_theta > 360.0f) {
     _theta = 0.0f;
   }
@@ -89,8 +89,8 @@ void BreakOut::render() {
 
   float cos_theta   = cos(_theta);
   float sin_theta   = sin(_theta);
-  float half_width  = static_cast<float>(getWidth()) / 2.0f;
-  float half_height = static_cast<float>(getHeight()) / 2.0f;
+  float half_width  = static_cast<float>(_p1.x + _p2.x + _p3.x) / 3.0f;
+  float half_height = static_cast<float>(_p1.y + _p2.y + _p3.y) / 3.0f;
 
   float p1x = _p1.x - half_width;
   float p1y = _p1.y - half_height;
